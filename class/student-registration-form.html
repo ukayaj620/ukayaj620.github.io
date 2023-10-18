@@ -10,6 +10,14 @@
         width: 180px;
       }
 
+      td {
+        width: 182px;
+      }
+
+      input[type="radio"] {
+        width: fit-content;
+      }
+
       textarea {
         width: 568px;
       }
@@ -44,10 +52,15 @@
         <table>
           <tbody>
             <tr>
+              <td><b>Gender</b></td>
               <td><b>Student Number</b></td>
               <td><b>Year Level</b></td>
             </tr>
             <tr>
+              <td>
+                <input name="gender" type="radio" value="male" /> Male
+                <input name="gender" type="radio" value="female" /> Female
+              </td>
               <td><input name="student_number" type="text" value="" /></td>
               <td>
                 <select name="level">
@@ -59,6 +72,7 @@
               </td>
             </tr>
             <tr>
+              <td></td>
               <td>e.g. 11183021</td>
               <td>for Incoming A.Y. '12-'13</td>
             </tr>
