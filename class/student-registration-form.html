@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration Form</title>
+    <style>
+      input,
+      select {
+        width: 180px;
+      }
+
+      textarea {
+        width: 568px;
+      }
+
+      button {
+        width: 576px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Student Registration Form</h1>
+    <form>
+      <div>
+        <label><b>Full name</b></label>
+        <table>
+          <tbody>
+            <tr>
+              <td><input name="firstname" type="text" value="" /></td>
+              <td><input name="middlename" type="text" value="" /></td>
+              <td><input name="lastname" type="text" value="" /></td>
+            </tr>
+            <tr>
+              <td>First Name</td>
+              <td>Middle Name</td>
+              <td>Last Name</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td><b>Student Number</b></td>
+              <td><b>Year Level</b></td>
+            </tr>
+            <tr>
+              <td><input name="student_number" type="text" value="" /></td>
+              <td>
+                <select name="level">
+                  <option value="0">Please Select</option>
+                  <option value="1">1st Year</option>
+                  <option value="2">2nd Year</option>
+                  <option value="3">3rd Year</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>e.g. 11183021</td>
+              <td>for Incoming A.Y. '12-'13</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td><b>Degree Program</b></td>
+              <td><b>Email</b></td>
+            </tr>
+            <tr>
+              <td>
+                <select name="degree">
+                  <option value="0">Please Select</option>
+                  <option value="1">B. Science</option>
+                  <option value="2">B. Engineering</option>
+                  <option value="3">B. Arts</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  name="email"
+                  type="email"
+                  value=""
+                  placeholder="ex: name@email.com"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <div>
+        <label><b>Birth Date</b></label>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <select name="birth_month">
+                  <option value="0">Please Select</option>
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  name="birth_day"
+                  type="number"
+                  value=""
+                  min="1"
+                  placeholder="Year (ex: 21)"
+                />
+              </td>
+              <td>
+                <input
+                  name="birth_year"
+                  type="number"
+                  value=""
+                  min="1980"
+                  max="2100"
+                  placeholder="Year (ex: 2000)"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Month</td>
+              <td>Day</td>
+              <td>Year</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <div>
+        <label><b>Present Address</b></label>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  name="street"
+                  type="text"
+                  value=""
+                  placeholder="ex: St. name"
+                />
+              </td>
+              <td>
+                <input
+                  name="city"
+                  type="text"
+                  value=""
+                  placeholder="ex: Medan"
+                />
+              </td>
+              <td>
+                <input
+                  name="province"
+                  type="text"
+                  value=""
+                  placeholder="ex: North Sumatera"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Street</td>
+              <td>City</td>
+              <td>Province</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td colspan="2"><b>Emergency Contact</b></td>
+              <td><b>Relationship</b></td>
+            </tr>
+            <tr>
+              <td><input name="e_contact_firstname" type="text" value="" /></td>
+              <td><input name="e_contact_lastname" type="text" value="" /></td>
+              <td>
+                <input name="relationship" type="text" value="" />
+              </td>
+            </tr>
+            <tr>
+              <td>First Name</td>
+              <td>Last Name</td>
+              <td>ex. Father, Mother, etc.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <div>
+        <label><b>Describe About Yourself</b></label> <br />
+        <textarea name="describe" rows="5"></textarea>
+      </div>
+      <br />
+      <div>
+        <button type="submit">SUBMIT</button>
+      </div>
+    </form>
+  </body>
+</html>
