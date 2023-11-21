@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table</title>
+    <style>
+      * {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid gray;
+      }
+
+      th {
+        background-color: rgb(255, 255, 84);
+      }
+
+      #form-control {
+        margin-top: 24px;
+      }
+
+      #datatable {
+        margin: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form-control">
+      <input name="search" placeholder="Input search..." />
+      <select name="page">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+      </select>
+    </form>
+    <table id="datatable">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+    <div id="pagination-control">
+      <button id="prev">Prev</button>
+      <button id="next">Next</button>
+    </div>
+    <script src="./scripts.js"></script>
+  </body>
+</html>
