@@ -276,6 +276,7 @@ const dataTableBodyRef = dataTableRef.querySelector("tbody");
 const dataTableHeadRef = dataTableRef.querySelector("thead");
 const formControlRef = document.getElementById("form-control");
 const formControlSearchRef = document.getElementsByName("search")[0];
+const pageSizeSelect = formControlRef.querySelector("[name=page]");
 const formControlPageSizeRef = document.getElementsByName("page")[0];
 const paginationControlPrevRef = document.getElementById("prev");
 const paginationControlNextRef = document.getElementById("next");
@@ -284,6 +285,8 @@ let sortColumnName = "name";
 let sortOrder = "asc";
 let pageSize = 10;
 let currentPage = 0;
+let search = "";
+let query = window.location.search;
 
 function paginateData(data, pageSize, currentPage) {
   const startIndex = currentPage * pageSize;
@@ -390,9 +393,18 @@ function updateTableContent() {
   paginationControlPrevRef.disabled = !hasPreviousPage;
 }
 
-function updateTable() {
+function redirectPage() {
+  query = `page=${currentPage}&pageSize=${pageSize}&search=${search}`;
+  window.location = `./index.html?${query}`;
+}
+
+function updateTable(redirect = true) {
   updateTableHeader();
   updateTableContent();
+
+  if (redirect) {
+    redirectPage();
+  }
 }
 
 paginationControlNextRef.addEventListener("click", function (e) {
@@ -407,10 +419,14 @@ paginationControlPrevRef.addEventListener("click", function (e) {
 
 formControlRef.addEventListener("submit", function (e) {
   e.preventDefault();
+  const formData = new FormData(formControlRef);
+  search = formData.get("search");
+
+  updateTable();
 });
 
 formControlSearchRef.addEventListener("change", function (e) {
-  console.log("berubah bang search");
+  // console.log("berubah bang search");
 });
 
 formControlPageSizeRef.addEventListener("change", function (e) {
@@ -419,5 +435,20 @@ formControlPageSizeRef.addEventListener("change", function (e) {
 });
 
 window.onload = function () {
-  updateTable();
+  const searchParams = new URLSearchParams(window.location.search);
+
+  currentPage = Number(searchParams.get("page"));
+  search = searchParams.get("search");
+  pageSize = Number(searchParams.get("pageSize"));
+
+  formControlSearchRef.value = search;
+  const pageSizeSelectedIndex = Array.from(pageSizeSelect.options).findIndex(
+    function (option) {
+      return Number(option.value) === pageSize;
+    }
+  );
+
+  pageSizeSelect.selectedIndex = pageSizeSelectedIndex;
+
+  updateTable(false);
 };
