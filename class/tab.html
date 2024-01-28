@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Tab</title>
+    <style>
+      * {
+        font-family: "Inter", sans-serif;
+      }
+
+      .tab {
+        min-width: 144px;
+        padding: 8px;
+        margin: 0 8px;
+        cursor: pointer;
+        text-align: center;
+        border-bottom: 1px solid transparent;
+      }
+
+      .tab.active {
+        border-bottom: 1px solid #858585;
+      }
+
+      .tab-list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 640px;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #dedede;
+      }
+
+      #tab-content {
+        width: 640px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #tab-content #title {
+        margin: 12px 0;
+      }
+
+      #tab-content #image {
+        margin: 16px 0;
+        width: 480px;
+      }
+
+      #tab-content #description {
+        margin: 8px 0;
+        line-height: 32px;
+      }
+    </style>
+  </head>
+  <body style="display: flex; flex-direction: column; align-items: center">
+    <div class="tab-list">
+      <div class="tab">CEO</div>
+      <div class="tab">COO</div>
+      <div class="tab">CTO</div>
+    </div>
+    <div id="tab-content">
+      <h2 id="title"></h2>
+      <img id="image" />
+      <p id="description"></p>
+    </div>
+    <script>
+      const contents = [
+        {
+          title: "Tim Cook",
+          imageLink:
+            "https://www.apple.com/leadership/images/bio/tim-cook_image.png.large.png",
+          description:
+            "Tim Cook is the CEO of Apple and serves on its board of directors. Before being named CEO in August 2011, Tim was Apple's chief operating officer and was responsible for all of the company's worldwide sales and operations, including end-to-end management of Apple's supply chain, sales activities, and service and support in all markets and countries. He also headed Apple's Macintosh division and played a key role in the continued development of strategic reseller and supplier relationships, ensuring flexibility in response to an increasingly demanding marketplace.",
+        },
+        {
+          title: "Jeff Williams",
+          imageLink:
+            "https://www.apple.com/leadership/images/bio/jeff_williams.png.large.png",
+          description:
+            "Jeff Williams is Apple's chief operating officer reporting to CEO Tim Cook. He oversees Apple's entire worldwide operations, as well as customer service and support. He leads Apple's renowned design team and the software and hardware engineering for Apple Watch. Jeff also drives the company's health initiatives, pioneering new technologies and advancing medical research to empower people to better understand and manage their health and fitness.",
+        },
+        {
+          title: "Craig Federighi",
+          imageLink:
+            "https://www.apple.com/leadership/images/bio/craig_federighi_image.png.large.png",
+          description:
+            "Craig Federighi is Apple's senior vice president of Software Engineering, reporting to CEO Tim Cook. Craig oversees the development of iOS and macOS. His teams are responsible for delivering the software at the heart of Apple's innovative products, including the user interface, applications and frameworks. Craig returned to Apple in 2009 to lead macOS engineering, and in 2012 took on responsibility for iOS as well, delivering all subsequent releases of the world's most advanced desktop and mobile operating systems.",
+        },
+      ];
+
+      const tabContentRef = document.querySelector("#tab-content");
+      const titleContentRef = tabContentRef.querySelector("#title");
+      const imageContentRef = tabContentRef.querySelector("#image");
+      const descriptionContentRef = tabContentRef.querySelector("#description");
+      const tabRefs = document.querySelectorAll(".tab");
+
+      function removeActiveTab() {
+        tabRefs.forEach((tabRef, index) => {
+          tabRef.classList.remove("active");
+        });
+      }
+
+      tabRefs.forEach((tabRef, index) => {
+        tabRef.addEventListener("click", function () {
+          removeActiveTab();
+          tabRef.classList.add("active");
+          titleContentRef.innerHTML = contents[index].title;
+          imageContentRef.src = contents[index].imageLink;
+          descriptionContentRef.innerHTML = contents[index].description;
+        });
+      });
+    </script>
+  </body>
+</html>
