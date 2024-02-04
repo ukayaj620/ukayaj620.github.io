@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Disclosure Website</title>
+    <style>
+      * {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+      }
+
+      .disclosure-group {
+        display: flex;
+        flex-direction: column;
+        margin: 16px 0;
+      }
+
+      .disclosure-group .title {
+        width: 480px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 12px;
+        cursor: pointer;
+      }
+      .disclosure-group .content {
+        display: none;
+        width: 480px;
+        padding: 12px;
+        background-color: #f9f9f9;
+        font-size: 14px;
+        line-height: 150%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="disclosure-list"></div>
+
+    <script>
+      const disclosureListRef = document.querySelector("#disclosure-list");
+
+      const contents = [
+        {
+          question:
+            "What does it means by Agile Metholody in software development?",
+          answer:
+            "Agile is an iterative approach to software development, emphasizing flexibility, collaboration, and rapid delivery of working software.",
+        },
+        {
+          question:
+            "What is the role of Version Control System in software development?",
+          answer:
+            "Version control systems track changes to source code, enabling collaboration, rollback to previous states, and code history management.",
+        },
+        {
+          question:
+            "How does Test-Driven Development (TDD) benefit software development?",
+          answer:
+            "TDD encourages writing tests before implementing functionality, promoting better-designed, more maintainable, and thoroughly tested code.",
+        },
+        {
+          question:
+            "What are the key principles of Object-Oriented Programming (OOP)?",
+          answer:
+            "OOP principles include encapsulation, inheritance, and polymorphism, facilitating modular, reusable, and maintainable software design.",
+        },
+        {
+          question:
+            "What is the difference between unit testing and integration testing in software development?",
+          answer:
+            "Unit testing focuses on testing individual components or units in isolation, while integration testing verifies interactions between these units in a larger system.",
+        },
+      ];
+
+      contents.forEach((content, index) => {
+        disclosureListRef.innerHTML += `
+              <div class="disclosure-group">
+                <div class="title" onclick="toggleDisclosureContent(${index})">${content.question}</div>
+                <div class="content">
+                  ${content.answer}
+                </div>
+              </div>
+              `;
+      });
+
+      const disclosureRefs =
+        disclosureListRef.querySelectorAll(".disclosure-group");
+
+      function toggleDisclosureContent(index) {
+        const disclosureTitleRef =
+          disclosureRefs[index].querySelector(".title");
+        const disclosureContentRef =
+          disclosureRefs[index].querySelector(".content");
+        const isShow = disclosureContentRef.style.display === "block";
+        disclosureContentRef.style.display = isShow ? "none" : "block";
+        disclosureTitleRef.style.border = isShow
+          ? "1px solid #ccc"
+          : "1px solid blue";
+      }
+    </script>
+  </body>
+</html>
