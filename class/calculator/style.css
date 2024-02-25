@@ -1,0 +1,49 @@
+* {
+  margin: 0px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.number-input {
+  font-size: 40px;
+  font-weight: bold;
+  padding: 8px 12px;
+  border: 1px solid black;
+  border-radius: 8px;
+  text-align: right;
+  width: 100%;
+  margin: 0 0 24px 0;
+}
+
+.calculator-container {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-container {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.calc-button {
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}

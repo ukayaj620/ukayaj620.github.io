@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./style.css" rel="stylesheet" />
+    <title>Number Input</title>
+  </head>
+  <body
+    style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 32px;
+    "
+  >
+    <div class="calculator-container">
+      <input class="number-input" id="number-input" name="number" value="0" />
+      <div class="input-container">
+        <div class="row">
+          <button class="calc-button" id="7" onclick="insert('7')">7</button>
+          <button class="calc-button" id="8" onclick="insert('8')">8</button>
+          <button class="calc-button" id="9" onclick="insert('9')">9</button>
+        </div>
+        <div class="row">
+          <button class="calc-button" id="4" onclick="insert('4')">4</button>
+          <button class="calc-button" id="5" onclick="insert('5')">5</button>
+          <button class="calc-button" id="6" onclick="insert('6')">6</button>
+        </div>
+        <div class="row">
+          <button class="calc-button" id="1" onclick="insert('1')">1</button>
+          <button class="calc-button" id="2" onclick="insert('2')">2</button>
+          <button class="calc-button" id="3" onclick="insert('3')">3</button>
+        </div>
+        <div class="row">
+          <button class="calc-button" id="." onclick="insert('.')">.</button>
+          <button class="calc-button" id="0" onclick="insert('0')">0</button>
+          <button class="calc-button" id="clear" onclick="clearInput()">
+            C
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
