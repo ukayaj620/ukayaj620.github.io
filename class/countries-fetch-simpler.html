@@ -48,24 +48,6 @@
       <tbody></tbody>
     </table>
     <script>
-      function formatNumber(num) {
-        const abbreviations = [
-          { value: 1e9, symbol: "B" },
-          { value: 1e6, symbol: "M" },
-          { value: 1e3, symbol: "K" },
-        ];
-
-        for (let i = 0; i < abbreviations.length; i++) {
-          const { value, symbol } = abbreviations[i];
-          if (num >= value) {
-            const formattedNum = (num / value).toFixed(1) + symbol;
-            return formattedNum;
-          }
-        }
-
-        return num.toString();
-      }
-
       const countryTableRef = document.getElementById("countryTable");
       const countryTableBodyRef = document.querySelector("tbody");
 
