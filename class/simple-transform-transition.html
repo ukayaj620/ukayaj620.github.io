@@ -4,11 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Transform Transition</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        min-height: 100vh;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .box {
+        width: 15rem;
+        height: 15rem;
+        background-color: #ffd700;
+        border-width: 8px;
+        border-style: solid;
+        border-top-color: #a3a3a3;
+        border-right-color: #737373;
+        border-bottom-color: #525252;
+        border-left-color: #404040;
+        transition: all 0.5s ease;
+        transform: rotate(0deg) scale(1);
+      }
+
+      .box:hover {
+        background-color: #38bdf8;
+        transform: rotate(225deg) scale(1.5);
+      }
+    </style>
   </head>
-  <body class="flex w-screen min-h-screen flex justify-center items-center">
-    <div
-      class="w-60 h-60 bg-[#FFD700] hover:bg-[#38bdf8] transform transition-all duration-500 hover:rotate-225 hover:scale-150 border-8 border-t-neutral-400 border-r-neutral-500 border-b-neutral-600 border-l-neutral-700"
-    ></div>
+  <body>
+    <div class="box"></div>
   </body>
 </html>
