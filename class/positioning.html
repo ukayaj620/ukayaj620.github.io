@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Positioning</title>
+    <style>
+      * {
+        margin: 0px;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="top: 0; left: 0; position: fixed">
+      <div
+        style="
+          width: 200px;
+          height: 200px;
+          border: 6px solid black;
+          position: relative;
+        "
+      >
+        <div
+          style="
+            width: 100px;
+            height: 100px;
+            border: 6px solid gold;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+          "
+        ></div>
+      </div>
+    </div>
+    <div
+      style="
+        width: 200px;
+        height: 200px;
+        border: 6px solid red;
+        position: fixed;
+        top: 0;
+        right: 0;
+      "
+    ></div>
+    <div
+      style="
+        width: 200px;
+        height: 200px;
+        border: 6px solid green;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+      "
+    ></div>
+    <div
+      style="
+        width: 200px;
+        height: 200px;
+        border: 6px solid blue;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+      "
+    ></div>
+
+    <div
+      style="
+        border: 4px solid gold;
+        width: 400px;
+        position: fixed;
+        top: calc(50% - 50.5px);
+        left: calc(50% - 200px);
+        padding: 16px 0;
+      "
+    >
+      <h1 style="font-size: 36px; text-align: center">The Challenge</h1>
+      <p style="font-size: 20px; text-align: center">
+        Position this paragraph at the center!
+      </p>
+    </div>
+  </body>
+</html>
