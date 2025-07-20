@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Student Input Form</title>
+    <style>
+      * {
+        margin: 0px;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        align-items: center;
+      }
+
+      form {
+        margin: 32px 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .input-group {
+        display: flex;
+        align-items: center;
+      }
+
+      .input-label-container {
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+      }
+
+      .input-label {
+        font-size: 14px;
+        color: #171717;
+        margin-bottom: 4px;
+      }
+
+      .input-description {
+        font-size: 12px;
+        color: #ababab;
+      }
+
+      .input-field {
+        color: #171717;
+        font-size: 14px;
+        height: 40px;
+        border: 1px solid #ababab;
+        border-radius: 8px;
+        min-width: 320px;
+        padding: 0px 12px;
+      }
+
+      .input-field:hover {
+        border: 1px solid #1d4ed8;
+      }
+
+      .input-field:focus {
+        border: 1px solid #1d4ed8;
+        outline: 2px solid #bfdbfe;
+        outline-offset: 2px;
+      }
+
+      .radio-group {
+        display: flex;
+        align-items: center;
+      }
+
+      .radio-input {
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+      }
+
+      .radio-label {
+        font-size: 14px;
+        color: #171717;
+      }
+
+      .btn {
+        font-size: 14px;
+        height: 40px;
+        border-radius: 8px;
+        padding: 0px 12px;
+        min-width: 80px;
+      }
+
+      .btn:hover {
+        cursor: pointer;
+      }
+
+      .btn.primary {
+        background-color: #1d4ed8;
+        color: #1d4ed8;
+        border: 1px solid #1d4ed8;
+      }
+
+      .btn.solid {
+        color: white;
+        border: none;
+      }
+
+      .btn.solid.primary:hover {
+        background-color: #1e40af;
+      }
+
+      .btn.outline {
+        background-color: white;
+      }
+
+      .btn.outline.primary:hover {
+        background-color: #eff6ff;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <div
+        style="
+          margin-bottom: 24px;
+          padding-bottom: 16px;
+          border-bottom: 1px solid #ababab;
+        "
+      >
+        <h2 style="color: #171717">Student Data</h2>
+      </div>
+      <div class="input-group" style="margin-bottom: 24px">
+        <div class="input-label-container">
+          <label class="input-label">Full Name</label>
+          <span class="input-description">The new student full name.</span>
+        </div>
+        <input
+          class="input-field"
+          name="fullName"
+          placeholder="Input full name"
+        />
+      </div>
+      <div class="input-group" style="margin-bottom: 24px">
+        <div class="input-label-container">
+          <label class="input-label">Gender</label>
+          <span class="input-description">The new student gender.</span>
+        </div>
+        <div class="radio-group">
+          <div style="margin-right: 12px; display: flex; align-items: center">
+            <input
+              name="gender"
+              class="radio-input"
+              type="radio"
+              value="male"
+            />
+            <span class="radio-label">Male</span>
+          </div>
+          <div style="display: flex; align-items: center">
+            <input
+              name="gender"
+              class="radio-input"
+              type="radio"
+              value="female"
+            />
+            <span class="radio-label">Female</span>
+          </div>
+        </div>
+      </div>
+      <div class="input-group" style="margin-bottom: 24px">
+        <div class="input-label-container">
+          <label class="input-label">Email</label>
+          <span class="input-description">The new student email.</span>
+        </div>
+        <input
+          class="input-field"
+          name="email"
+          type="email"
+          placeholder="Input email"
+        />
+      </div>
+      <div class="input-group" style="margin-bottom: 24px">
+        <div class="input-label-container">
+          <label class="input-label">Birth Place</label>
+          <span class="input-description">The new student birth place.</span>
+        </div>
+        <input
+          class="input-field"
+          name="fullName"
+          placeholder="Input birth place"
+        />
+      </div>
+      <div class="input-group" style="margin-bottom: 24px">
+        <div class="input-label-container">
+          <label class="input-label">Birth Date</label>
+          <span class="input-description">The new student birth date.</span>
+        </div>
+        <input class="input-field" name="fullName" type="date" />
+      </div>
+      <div class="input-group">
+        <div class="input-label-container">
+          <label class="input-label">Parent's Phone Number</label>
+          <span class="input-description"
+            >The new student parent's phone number to contact.</span
+          >
+        </div>
+        <input
+          class="input-field"
+          name="phoneNumber"
+          type="text"
+          placeholder="Input phone number"
+        />
+      </div>
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-top: 24px;
+          padding-top: 16px;
+          border-top: 1px solid #ababab;
+        "
+      >
+        <button
+          class="btn primary outline"
+          style="margin-left: auto; margin-right: 12px"
+          type="button"
+        >
+          Back
+        </button>
+        <button class="btn primary solid" type="submit">Submit</button>
+      </div>
+    </form>
+  </body>
+</html>
