@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Reveal Text</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      .reveal-text-container {
+        border: 1px solid black;
+        width: 960px;
+        overflow: hidden;
+      }
+
+      .reveal-text {
+        font-size: 60px;
+        text-align: center;
+        transform: translateY(100%);
+        color: white;
+        transition-property: transform, color;
+        transition-duration: 800ms, 1200ms;
+        transition-timing-function: ease-in-out;
+        padding: 40px 0;
+      }
+
+      .reveal-text-container:hover .reveal-text {
+        transform: translateY(0%);
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <p style="margin-bottom: 16px; font-weight: 500">HOVER THE BOX BELOW!</p>
+    <div class="reveal-text-container">
+      <h1 class="reveal-text">The text is revealed when you hover the box.</h1>
+    </div>
+  </body>
+</html>
