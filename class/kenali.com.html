@@ -63,7 +63,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        height: calc(100vh - 93px);
+        min-height: calc(100vh - 93px);
       }
 
       .jumbo-title {
@@ -100,6 +100,94 @@
         cursor: pointer;
       }
 
+      .why-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 48px 0;
+      }
+
+      .why-title {
+        font-size: 40px;
+        font-weight: 500;
+        color: #3c5a4b;
+        text-align: left;
+        margin-bottom: 36px;
+      }
+
+      .why-card-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .why-card {
+        width: 100%;
+        border-radius: 8px;
+        aspect-ratio: 4 / 3;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .why-card img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        aspect-ratio: 4 / 3;
+      }
+
+      .why-card .backdrop {
+        background-color: black;
+        opacity: 60%;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        border-radius: 8px;
+      }
+
+      .why-card .content {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 16px 16px 24px 16px;
+      }
+
+      .why-card .content .card-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+        margin-top: auto;
+        margin-bottom: 12px;
+      }
+
+      .why-card .content .card-description {
+        font-size: 14px;
+        color: white;
+        line-height: 1.375;
+      }
+
+      @media (min-width: 640px) {
+        .why-card .content {
+          padding: 24px 24px 32px 24px;
+        }
+
+        .why-card .content .card-title {
+          font-size: 24px;
+          font-weight: 600;
+          color: white;
+          margin-bottom: 16px;
+        }
+
+        .why-card .content .card-description {
+          font-size: 16px;
+        }
+      }
+
       @media (min-width: 768px) {
         .jumbo-content {
           max-width: 800px;
@@ -122,6 +210,26 @@
           padding: 16px 20px;
           font-size: 18px;
         }
+
+        .why-title {
+          font-size: 50px;
+          text-align: center;
+          margin-bottom: 48px;
+        }
+
+        .why-content {
+          align-items: center;
+          padding: 72px 0;
+        }
+
+        .why-card-container {
+          flex-direction: row;
+          gap: 20px;
+        }
+
+        .why-card {
+          width: calc((100% - 20px) / 2);
+        }
       }
 
       @media (min-width: 1024px) {
@@ -139,6 +247,32 @@
 
         .jumbo-btn {
           padding: 20px 24px;
+          font-size: 20px;
+        }
+
+        .why-content {
+          max-width: 1200px;
+          padding: 120px 0;
+        }
+
+        .why-card-container {
+          gap: 32px;
+        }
+
+        .why-title {
+          font-size: 58px;
+          text-align: center;
+        }
+
+        .why-card {
+          width: calc((100% - 32px) / 2);
+        }
+
+        .why-card .content .card-title {
+          font-size: 30px;
+        }
+
+        .why-card .content .card-description {
           font-size: 20px;
         }
       }
@@ -159,8 +293,41 @@
             sendiri. Mengenal diri sendiri menjadi langkah awal kamu mengerti
             dan memahami dirimu sendiri.
           </p>
-
           <button class="jumbo-btn">Kenali Dirimu</button>
+        </div>
+      </div>
+      <div class="main-container bg-white">
+        <div class="main-content why-content">
+          <h2 class="why-title">Mengapa Kenali?</h2>
+          <div class="why-card-container">
+            <div class="why-card">
+              <img
+                src="https://www.icanotes.com/wp-content/uploads/2020/10/Client-Confidentiality.jpg"
+              />
+              <div class="backdrop"></div>
+              <div class="content">
+                <h3 class="card-title">Privasi menjadi Prioritas Utama</h3>
+                <p class="card-description">
+                  Di Kenali, data privasi setiap orang menjadi prioritas bagi
+                  kami untuk dijaga.
+                </p>
+              </div>
+            </div>
+            <div class="why-card">
+              <img
+                src="https://www.management-krankenhaus.de/sites/default/files/styles/gallery/public/2024-03/uksh_leberkrebszentrum.jpg"
+              />
+              <div class="backdrop"></div>
+              <div class="content">
+                <h3 class="card-title">Team Psikolog Professional</h3>
+                <p class="card-description">
+                  Setiap psikolog dari kenali adalah psikolog yang telah
+                  berpengalaman lebih dari 10 tahun dalam praktiknya baik dalam
+                  negeri maupun luar negeri.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
