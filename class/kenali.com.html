@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Kenali</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Zalando Sans", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+      }
+
+      .header-container {
+        background-color: #a8c3a0;
+        padding: 16px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .header-content {
+        max-width: 1920px;
+        width: 100%;
+      }
+
+      .brand-text {
+        font-size: 24px;
+        font-weight: 500;
+        color: #3c5a4b;
+      }
+
+      .main-container {
+        padding: 16px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .main-container.bg-white {
+        background-color: white;
+      }
+
+      .main-container.bg-highlight {
+        background-color: #f5f1e7;
+      }
+
+      .jumbo-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        height: calc(100vh - 93px);
+      }
+
+      .jumbo-title {
+        font-size: 54px;
+        font-weight: 500;
+        color: #3c5a4b;
+        text-align: left;
+        margin-bottom: 18px;
+      }
+
+      .jumbo-description {
+        font-size: 18px;
+        font-weight: 400;
+        color: #8c8c8c;
+        text-align: left;
+        line-height: 1.5;
+        margin-bottom: 36px;
+      }
+
+      .jumbo-btn {
+        padding: 14px 18px;
+        background-color: #3c5a4b;
+        color: white;
+        border: transparent;
+        border-radius: 12px;
+        font-size: 16px;
+        transition-property: all;
+        transition-duration: 200ms;
+        transition-timing-function: ease-in-out;
+      }
+
+      .jumbo-btn:hover {
+        box-shadow: 0 0 24px #a8c3a0;
+        cursor: pointer;
+      }
+
+      @media (min-width: 768px) {
+        .jumbo-content {
+          max-width: 800px;
+          align-items: center;
+        }
+
+        .jumbo-title {
+          font-size: 64px;
+          text-align: center;
+          margin-bottom: 24px;
+        }
+
+        .jumbo-description {
+          font-size: 20px;
+          text-align: center;
+          margin-bottom: 48px;
+        }
+
+        .jumbo-btn {
+          padding: 16px 20px;
+          font-size: 18px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .jumbo-content {
+          max-width: 1200px;
+        }
+
+        .jumbo-title {
+          font-size: 72px;
+        }
+
+        .jumbo-description {
+          font-size: 24px;
+        }
+
+        .jumbo-btn {
+          padding: 20px 24px;
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header-container">
+      <div class="header-content">
+        <p class="brand-text">Kenali</p>
+      </div>
+    </header>
+    <main>
+      <div class="main-container bg-highlight">
+        <div class="main-content jumbo-content">
+          <h2 class="jumbo-title">Kenali dirimu lebih dalam.</h2>
+          <p class="jumbo-description">
+            Seringkali kita merasa tidak bahagia karena kita tidak mengenal diri
+            sendiri. Mengenal diri sendiri menjadi langkah awal kamu mengerti
+            dan memahami dirimu sendiri.
+          </p>
+
+          <button class="jumbo-btn">Kenali Dirimu</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
