@@ -171,6 +171,76 @@
         line-height: 1.375;
       }
 
+      .cta-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 48px 0;
+      }
+
+      .cta-title {
+        font-size: 40px;
+        font-weight: 500;
+        color: #3c5a4b;
+        text-align: left;
+        margin-bottom: 18px;
+      }
+
+      .cta-description {
+        font-size: 16px;
+        font-weight: 400;
+        color: #8c8c8c;
+        text-align: left;
+        line-height: 1.5;
+        margin-bottom: 36px;
+      }
+
+      .cta-form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .input-label {
+        font-size: 12px;
+        color: #8c8c8c;
+        margin-bottom: 4px;
+      }
+
+      .input {
+        font-size: 14px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        width: 100%;
+        border: 1px solid #8c8c8c;
+        color: #1b1b1b;
+        background-color: white;
+      }
+
+      .input:focus {
+        outline: 2px solid #a8c3a0;
+        outline-offset: 1px;
+      }
+
+      .button {
+        font-size: 14px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        width: 100%;
+        background-color: #3c5a4b;
+        border: 1px solid #3c5a4b;
+        color: white;
+        margin-top: 18px;
+      }
+
       @media (min-width: 640px) {
         .why-card .content {
           padding: 24px 24px 32px 24px;
@@ -230,6 +300,41 @@
         .why-card {
           width: calc((100% - 20px) / 2);
         }
+
+        .cta-content {
+          align-items: center;
+          padding: 72px 0;
+        }
+
+        .cta-title {
+          font-size: 50px;
+          text-align: center;
+          margin-bottom: 30px;
+        }
+
+        .cta-description {
+          font-size: 18px;
+          text-align: center;
+          margin-bottom: 48px;
+        }
+
+        .cta-form {
+          max-width: 640px;
+        }
+
+        .input-label {
+          font-size: 14px;
+        }
+
+        .input {
+          font-size: 16px;
+          padding: 12px;
+        }
+
+        .button {
+          font-size: 16px;
+          padding: 12px;
+        }
       }
 
       @media (min-width: 1024px) {
@@ -274,6 +379,20 @@
 
         .why-card .content .card-description {
           font-size: 20px;
+        }
+
+        .cta-content {
+          max-width: 1200px;
+          padding: 120px 0;
+        }
+
+        .cta-title {
+          font-size: 58px;
+          text-align: center;
+        }
+
+        .cta-description {
+          font-size: 22px;
         }
       }
     </style>
@@ -328,6 +447,22 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="main-container bg-white">
+        <div class="main-content cta-content">
+          <h2 class="cta-title">Mulai kenali dirimu sekarang!</h2>
+          <p class="cta-description">
+            Subscribe newsletter kami untuk mendapatkan early access dan info
+            terkait perkembangan platform Kenali.
+          </p>
+          <form class="cta-form">
+            <div class="input-group">
+              <label class="input-label">Email</label>
+              <input class="input" placeholder="Input email" />
+            </div>
+            <button class="button" type="submit">Submit</button>
+          </form>
         </div>
       </div>
     </main>
