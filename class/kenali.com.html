@@ -28,6 +28,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 10;
       }
 
       .header-content {
@@ -47,6 +50,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        min-height: 100vh;
       }
 
       .main-container.bg-white {
@@ -241,6 +245,30 @@
         margin-top: 18px;
       }
 
+      .footer-container {
+        padding: 16px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #3c5a4b;
+      }
+
+      .footer-content {
+        width: 100%;
+        max-width: 1280px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 48px 0;
+        gap: 40px;
+      }
+
+      .footer-link {
+        text-decoration: none;
+        color: #a8c3a0;
+        cursor: pointer;
+      }
+
       @media (min-width: 640px) {
         .why-card .content {
           padding: 24px 24px 32px 24px;
@@ -335,6 +363,12 @@
           font-size: 16px;
           padding: 12px;
         }
+
+        .footer-content {
+          padding: 72px 0;
+          flex-direction: row;
+          gap: 0;
+        }
       }
 
       @media (min-width: 1024px) {
@@ -394,6 +428,10 @@
         .cta-description {
           font-size: 22px;
         }
+
+        .footer-content {
+          padding: 80px 0;
+        }
       }
     </style>
   </head>
@@ -449,7 +487,7 @@
           </div>
         </div>
       </div>
-      <div class="main-container bg-white">
+      <div id="newsletter" class="main-container bg-highlight">
         <div class="main-content cta-content">
           <h2 class="cta-title">Mulai kenali dirimu sekarang!</h2>
           <p class="cta-description">
@@ -466,5 +504,28 @@
         </div>
       </div>
     </main>
+    <footer class="footer-container">
+      <div class="footer-content">
+        <div>
+          <p class="brand-text" style="color: white; margin-bottom: 12px">
+            Kenali
+          </p>
+          <p style="color: white; margin-bottom: 16px">
+            #1 platform berfokus pada <i>mental health issue</i>.
+          </p>
+          <a href="#newsletter" class="footer-link">Subscribe Newsletter</a>
+        </div>
+        <div>
+          <p style="color: #bcbcbc; margin-bottom: 16px">Alamat</p>
+          <p style="color: white; width: 360px">
+            PT Kenali Dirimu Lebih Dalam
+            <span style="margin-top: 4px; display: block">
+              Jl. R.P. Suroso Blok 40-D/42 A, Jakarta 10330, DKI Jakarta,
+              Indonesia
+            </span>
+          </p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
