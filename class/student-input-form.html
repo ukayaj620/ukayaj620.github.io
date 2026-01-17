@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -88,6 +88,22 @@
         color: #171717;
       }
 
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+      }
+
+      .checkbox-input {
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+      }
+
+      .checkbox-label {
+        font-size: 14px;
+        color: #171717;
+      }
+
       .btn {
         font-size: 14px;
         height: 40px;
@@ -125,7 +141,7 @@
     </style>
   </head>
   <body>
-    <form>
+    <form id="form">
       <div
         style="
           margin-bottom: 24px;
@@ -174,6 +190,52 @@
       </div>
       <div class="input-group" style="margin-bottom: 24px">
         <div class="input-label-container">
+          <label class="input-label">Circle of Competence</label>
+          <span class="input-description"
+            >The new student circle of competence.</span
+          >
+        </div>
+        <div class="checkbox-group" style="flex-wrap: wrap">
+          <div style="margin-right: 12px; display: flex; align-items: center">
+            <input
+              name="coc"
+              class="checkbox-input"
+              type="checkbox"
+              value="math"
+            />
+            <span class="checkbox-label">Math</span>
+          </div>
+          <div style="margin-right: 12px; display: flex; align-items: center">
+            <input
+              name="coc"
+              class="checkbox-input"
+              type="checkbox"
+              value="physics"
+            />
+            <span class="checkbox-label">Physics</span>
+          </div>
+          <div style="margin-right: 12px; display: flex; align-items: center">
+            <input
+              name="coc"
+              class="checkbox-input"
+              type="checkbox"
+              value="chemistry"
+            />
+            <span class="checkbox-label">Chemistry</span>
+          </div>
+          <div style="display: flex; align-items: center">
+            <input
+              name="coc"
+              class="checkbox-input"
+              type="checkbox"
+              value="biology"
+            />
+            <span class="checkbox-label">Biology</span>
+          </div>
+        </div>
+      </div>
+      <div class="input-group" style="margin-bottom: 24px">
+        <div class="input-label-container">
           <label class="input-label">Email</label>
           <span class="input-description">The new student email.</span>
         </div>
@@ -191,7 +253,7 @@
         </div>
         <input
           class="input-field"
-          name="fullName"
+          name="birthPlace"
           placeholder="Input birth place"
         />
       </div>
@@ -200,7 +262,7 @@
           <label class="input-label">Birth Date</label>
           <span class="input-description">The new student birth date.</span>
         </div>
-        <input class="input-field" name="fullName" type="date" />
+        <input class="input-field" name="birthDate" type="date" />
       </div>
       <div class="input-group">
         <div class="input-label-container">
@@ -236,5 +298,40 @@
         <button class="btn primary solid" type="submit">Submit</button>
       </div>
     </form>
+    <div id="output"></div>
+    <script>
+      const form = document.querySelector("form");
+      const outputRef = document.getElementById("output");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Get values (explicit, one by one)
+        const fullName = form.fullName.value;
+        const gender = form.gender.value;
+
+        const coc = Array.from(
+          form.querySelectorAll('input[name="coc"]:checked'),
+        ).map((el) => el.value);
+
+        const email = form.email.value;
+        const birthPlace = form.birthPlace.value;
+        const birthDate = form.birthDate.value;
+        const phoneNumber = form.phoneNumber.value;
+
+        // Output (explicit order)
+        outputRef.innerHTML = `
+      <div style="margin-top:24px;font-size:14px;color:#171717">
+        <div><strong>Full Name:</strong> ${fullName}</div>
+        <div><strong>Gender:</strong> ${gender}</div>
+        <div><strong>Circle of Competence:</strong> ${coc.join(", ")}</div>
+        <div><strong>Email:</strong> ${email}</div>
+        <div><strong>Birth Place:</strong> ${birthPlace}</div>
+        <div><strong>Birth Date:</strong> ${birthDate}</div>
+        <div><strong>Parent's Phone Number:</strong> ${phoneNumber}</div>
+      </div>
+    `;
+      });
+    </script>
   </body>
 </html>
