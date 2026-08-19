@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Exchange Rate Dashboard</title>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      * {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-zinc-50 text-zinc-900">
+    <main class="mx-auto max-w-6xl px-6 py-12">
+      <!-- Header -->
+      <header class="mb-10">
+        <p class="mb-2 text-sm font-semibold tracking-widest text-zinc-500">
+          FINANCIAL DASHBOARD
+        </p>
+
+        <h1 class="text-4xl font-bold tracking-tight">Exchange Rates</h1>
+
+        <p class="mt-3 text-zinc-500">
+          View the latest exchange rates for currencies around the world.
+        </p>
+      </header>
+
+      <!-- Currency Converter -->
+      <section
+        class="mb-8 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm"
+      >
+        <div class="mb-6">
+          <h2 class="text-xl font-semibold">Currency Converter</h2>
+
+          <p class="mt-1 text-sm text-zinc-500">
+            Select a base currency and enter an amount.
+          </p>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-2">
+          <!-- Amount -->
+          <div>
+            <label
+              for="amount"
+              class="mb-2 block text-sm font-medium text-zinc-700"
+            >
+              Amount
+            </label>
+
+            <input
+              id="amount"
+              type="number"
+              min="0"
+              value="1"
+              class="h-11 w-full rounded-lg border border-zinc-300 px-3 outline-none focus:border-zinc-900"
+            />
+          </div>
+
+          <!-- Base Currency -->
+          <div>
+            <label
+              for="baseCurrency"
+              class="mb-2 block text-sm font-medium text-zinc-700"
+            >
+              Base Currency
+            </label>
+
+            <div class="relative">
+              <select
+                id="baseCurrency"
+                class="appearance-none h-11 w-full rounded-lg border border-zinc-300 bg-white px-3 outline-none focus:border-zinc-900"
+              >
+                <option value="USD">USD - United States Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - Pound Sterling</option>
+                <option value="IDR">IDR - Indonesian Rupiah</option>
+              </select>
+
+              <ion-icon
+                class="text-lg text-neutral-500 absolute right-3 top-1/2 -translate-y-1/2 z-10"
+                name="chevron-down-outline"
+              ></ion-icon>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Error -->
+      <div
+        id="error"
+        class="mb-6 hidden rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+      ></div>
+
+      <!-- Exchange Rates -->
+      <section
+        class="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm"
+      >
+        <!-- Table Header -->
+        <div
+          class="flex flex-col gap-4 border-b border-zinc-200 p-6 md:flex-row md:items-center md:justify-between"
+        >
+          <div>
+            <h2 id="tableTitle" class="text-xl font-semibold">1 USD equals</h2>
+
+            <p class="mt-1 text-sm text-zinc-500">
+              Latest available exchange rates
+            </p>
+          </div>
+
+          <input
+            id="search"
+            type="text"
+            placeholder="Search currency..."
+            class="h-11 w-full rounded-lg border border-zinc-300 px-3 text-sm outline-none focus:border-zinc-900 md:w-64"
+          />
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="flex h-64 items-center justify-center">
+          <p class="text-sm text-zinc-500">Loading exchange rates...</p>
+        </div>
+
+        <!-- Table -->
+        <div id="tableContainer" class="hidden overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-zinc-200 bg-zinc-50">
+                <th
+                  class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-zinc-500"
+                >
+                  #
+                </th>
+
+                <th
+                  class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-zinc-500"
+                >
+                  Currency
+                </th>
+
+                <th
+                  class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-zinc-500"
+                >
+                  Rate
+                </th>
+
+                <th
+                  id="convertedHeader"
+                  class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-zinc-500"
+                >
+                  1 USD
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div
+          id="pagination"
+          class="hidden items-center justify-between border-t border-zinc-200 px-6 py-4"
+        >
+          <button
+            id="previousButton"
+            class="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            ← Previous
+          </button>
+
+          <span id="pageInfo" class="text-sm text-zinc-500"> Page 1 of 1 </span>
+
+          <button
+            id="nextButton"
+            class="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            Next →
+          </button>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <p class="mt-6 text-center text-xs text-zinc-400">
+        Exchange rate data provided by Frankfurter.
+      </p>
+    </main>
+
+    <script>
+      const API_URL = "https://api.frankfurter.dev/v2";
+
+      const ITEMS_PER_PAGE = 10;
+
+      // ---------------------------------------
+      // State
+      // ---------------------------------------
+
+      let currencies = [];
+      let rates = [];
+
+      let baseCurrency = "USD";
+      let amount = 1;
+
+      let search = "";
+      let currentPage = 1;
+
+      // ---------------------------------------
+      // DOM Elements
+      // ---------------------------------------
+
+      const amountInput = document.getElementById("amount");
+
+      const baseCurrencySelect = document.getElementById("baseCurrency");
+
+      const searchInput = document.getElementById("search");
+
+      const tableBody = document.getElementById("tableBody");
+
+      const loading = document.getElementById("loading");
+
+      const tableContainer = document.getElementById("tableContainer");
+
+      const pagination = document.getElementById("pagination");
+
+      const previousButton = document.getElementById("previousButton");
+
+      const nextButton = document.getElementById("nextButton");
+
+      const pageInfo = document.getElementById("pageInfo");
+
+      const tableTitle = document.getElementById("tableTitle");
+
+      const convertedHeader = document.getElementById("convertedHeader");
+
+      const errorElement = document.getElementById("error");
+
+      // ---------------------------------------
+      // Fetch currencies
+      // ---------------------------------------
+
+      async function fetchCurrencies() {
+        try {
+          const response = await fetch(`${API_URL}/currencies`);
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch currencies");
+          }
+
+          const data = await response.json();
+
+          currencies = Object.entries(data)
+            .map(([code, name]) => ({
+              code,
+              name,
+            }))
+            .sort((a, b) => a.code.localeCompare(b.code));
+
+          renderCurrencyOptions();
+        } catch (error) {
+          showError(error.message);
+        }
+      }
+
+      // ---------------------------------------
+      // Render currency dropdown
+      // ---------------------------------------
+
+      function renderCurrencyOptions() {
+        baseCurrencySelect.innerHTML = "";
+
+        currencies.forEach((currency) => {
+          const option = document.createElement("option");
+
+          option.value = currency.name.iso_code;
+
+          option.textContent = `${currency.name.iso_code} - ${currency.name.name}`;
+
+          if (currency.name.iso_code === baseCurrency) {
+            option.selected = true;
+          }
+
+          baseCurrencySelect.appendChild(option);
+        });
+      }
+
+      // ---------------------------------------
+      // Fetch exchange rates
+      // ---------------------------------------
+
+      async function fetchRates() {
+        try {
+          loading.classList.remove("hidden");
+
+          tableContainer.classList.add("hidden");
+
+          pagination.classList.add("hidden");
+
+          const response = await fetch(`${API_URL}/rates?base=${baseCurrency}`);
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch exchange rates");
+          }
+
+          rates = await response.json();
+
+          currentPage = 1;
+
+          renderTable();
+        } catch (error) {
+          showError(error.message);
+        } finally {
+          loading.classList.add("hidden");
+        }
+      }
+
+      // ---------------------------------------
+      // Filter rates
+      // ---------------------------------------
+
+      function getFilteredRates() {
+        return rates.filter((item) => {
+          return item.quote.toLowerCase().includes(search.toLowerCase());
+        });
+      }
+
+      // ---------------------------------------
+      // Render table
+      // ---------------------------------------
+
+      function renderTable() {
+        const filteredRates = getFilteredRates();
+
+        const totalPages = Math.ceil(filteredRates.length / ITEMS_PER_PAGE);
+
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+
+        const paginatedRates = filteredRates.slice(
+          startIndex,
+          startIndex + ITEMS_PER_PAGE,
+        );
+
+        // Update title
+
+        tableTitle.textContent = `1 ${baseCurrency} equals`;
+
+        convertedHeader.textContent = `${amount} ${baseCurrency}`;
+
+        // Clear table
+
+        tableBody.innerHTML = "";
+
+        // Empty result
+
+        if (paginatedRates.length === 0) {
+          tableBody.innerHTML = `
+          <tr>
+            <td
+              colspan="4"
+              class="px-6 py-12 text-center text-sm text-zinc-500"
+            >
+              No currencies found.
+            </td>
+          </tr>
+        `;
+        }
+
+        // Create rows
+
+        paginatedRates.forEach((item, index) => {
+          console.log(currencies);
+          const currency = currencies.find(
+            (currency) => currency.code === item.quote,
+          );
+
+          const converted = amount * item.rate;
+
+          const rowNumber = startIndex + index + 1;
+
+          const row = document.createElement("tr");
+
+          row.className =
+            "border-b border-zinc-100 last:border-0 hover:bg-zinc-50";
+
+          row.innerHTML = `
+
+            <td class="px-6 py-4 text-sm text-zinc-400">
+              ${rowNumber}
+            </td>
+
+            <td class="px-6 py-4">
+
+              <div class="flex flex-col">
+
+                <span class="font-semibold text-zinc-900">
+                  ${item.quote}
+                </span>
+
+              </div>
+
+            </td>
+
+            <td class="px-6 py-4 text-sm text-zinc-700">
+              ${item.rate.toLocaleString(undefined, {
+                maximumFractionDigits: 6,
+              })}
+            </td>
+
+            <td class="px-6 py-4 text-sm font-semibold text-zinc-900">
+
+              ${converted.toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+              })}
+
+              ${item.quote}
+
+            </td>
+
+          `;
+
+          tableBody.appendChild(row);
+        });
+
+        // Show table
+
+        tableContainer.classList.remove("hidden");
+
+        pagination.classList.remove("hidden");
+
+        pagination.classList.add("flex");
+
+        // Pagination
+
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+        previousButton.disabled = currentPage === 1;
+
+        nextButton.disabled = currentPage === totalPages || totalPages === 0;
+      }
+
+      // ---------------------------------------
+      // Events
+      // ---------------------------------------
+
+      baseCurrencySelect.addEventListener("change", (event) => {
+        baseCurrency = event.target.value;
+
+        fetchRates();
+      });
+
+      amountInput.addEventListener("input", (event) => {
+        amount = Number(event.target.value);
+
+        renderTable();
+      });
+
+      searchInput.addEventListener("input", (event) => {
+        search = event.target.value;
+
+        currentPage = 1;
+
+        renderTable();
+      });
+
+      previousButton.addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage--;
+
+          renderTable();
+        }
+      });
+
+      nextButton.addEventListener("click", () => {
+        const totalPages = Math.ceil(
+          getFilteredRates().length / ITEMS_PER_PAGE,
+        );
+
+        if (currentPage < totalPages) {
+          currentPage++;
+
+          renderTable();
+        }
+      });
+
+      // ---------------------------------------
+      // Error handling
+      // ---------------------------------------
+
+      function showError(message) {
+        errorElement.textContent = message;
+
+        errorElement.classList.remove("hidden");
+      }
+
+      // ---------------------------------------
+      // Initial load
+      // ---------------------------------------
+
+      async function init() {
+        await fetchCurrencies();
+
+        await fetchRates();
+      }
+
+      init();
+    </script>
+  </body>
+</html>
