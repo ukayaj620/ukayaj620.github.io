@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Create Product Category | Simple POS</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --background: #ffffff;
+        --foreground: #09090b;
+
+        --muted: #71717a;
+        --border: #e4e4e7;
+
+        --sidebar-width: 240px;
+
+        --primary: #18181b;
+        --primary-foreground: #fafafa;
+
+        --danger: #dc2626;
+        --danger-background: #fef2f2;
+      }
+
+      body {
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+
+        background: var(--background);
+        color: var(--foreground);
+        font-size: 14px;
+      }
+
+      /* =========================
+         Layout
+      ========================= */
+
+      .app {
+        min-height: 100vh;
+        display: flex;
+      }
+
+      /* =========================
+         Sidebar
+      ========================= */
+
+      .sidebar {
+        width: var(--sidebar-width);
+        min-height: 100vh;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        border-right: 1px solid var(--border);
+        background: #fafafa;
+      }
+
+      .sidebar-header {
+        height: 64px;
+        min-height: 64px;
+
+        display: flex;
+        align-items: center;
+
+        padding: 0 20px;
+
+        border-bottom: 1px solid var(--border);
+      }
+
+      .sidebar-title {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .sidebar-content {
+        padding: 20px 12px;
+      }
+
+      .sidebar-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .sidebar-group-title {
+        padding: 0 8px;
+        margin-bottom: 6px;
+
+        color: var(--muted);
+
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+
+        height: 36px;
+        padding: 0 10px;
+
+        border-radius: 6px;
+
+        color: #52525b;
+        text-decoration: none;
+
+        font-size: 14px;
+        font-weight: 500;
+
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+
+      .sidebar-link:hover {
+        background: #f4f4f5;
+        color: var(--foreground);
+      }
+
+      .sidebar-link.active {
+        background: #e4e4e7;
+        color: var(--foreground);
+      }
+
+      /* =========================
+         Main
+      ========================= */
+
+      .main {
+        width: calc(100% - var(--sidebar-width));
+        margin-left: var(--sidebar-width);
+        min-height: 100vh;
+      }
+
+      /* =========================
+         Header
+      ========================= */
+
+      .main-header {
+        height: 64px;
+        min-height: 64px;
+
+        display: flex;
+        align-items: center;
+
+        padding: 0 32px;
+
+        border-bottom: 1px solid var(--border);
+        background: var(--background);
+      }
+
+      .header-content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+
+        color: var(--muted);
+        text-decoration: none;
+
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .back-button:hover {
+        color: var(--foreground);
+      }
+
+      .header-divider {
+        width: 1px;
+        height: 20px;
+
+        background: var(--border);
+      }
+
+      .page-title {
+        color: var(--foreground);
+
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      /* =========================
+         Content
+      ========================= */
+
+      .content {
+        width: 100%;
+        padding: 32px;
+      }
+
+      .form-container {
+        width: 100%;
+        max-width: 720px;
+
+        margin: 0 auto;
+      }
+
+      /* =========================
+         Form
+      ========================= */
+
+      .form {
+        width: 100%;
+      }
+
+      .form-title {
+        margin-bottom: 14px;
+
+        color: var(--foreground);
+
+        font-size: 16px;
+        font-weight: 600;
+
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 16px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 200px minmax(0, 1fr);
+
+        column-gap: 48px;
+
+        padding: 10px 0;
+      }
+
+      .form-row:first-child {
+        padding-top: 0;
+      }
+
+      .form-label-container {
+        padding-top: 8px;
+      }
+
+      .form-label {
+        display: block;
+
+        color: var(--foreground);
+
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .form-description {
+        margin-top: 5px;
+
+        color: var(--muted);
+
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .form-field {
+        min-width: 0;
+      }
+
+      .input,
+      .textarea {
+        width: 100%;
+
+        border: 1px solid var(--border);
+        border-radius: 6px;
+
+        background: white;
+        color: var(--foreground);
+
+        font-family: inherit;
+        font-size: 14px;
+
+        outline: none;
+
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+
+      .input {
+        height: 40px;
+        padding: 0 12px;
+      }
+
+      .textarea {
+        min-height: 120px;
+
+        padding: 10px 12px;
+
+        resize: vertical;
+        line-height: 1.5;
+      }
+
+      .input::placeholder,
+      .textarea::placeholder {
+        color: #a1a1aa;
+      }
+
+      .input:focus,
+      .textarea:focus {
+        border-color: #a1a1aa;
+        outline: 2px solid #f4f4f5;
+      }
+
+      .error {
+        display: block;
+
+        margin-top: 4px;
+
+        color: var(--danger);
+
+        font-size: 12px;
+      }
+
+      /* =========================
+         Form Footer
+      ========================= */
+
+      .form-footer {
+        display: flex;
+        justify-content: flex-end;
+
+        padding-top: 24px;
+        margin-top: 14px;
+        border-top: 1px solid var(--border);
+      }
+
+      .submit-button {
+        height: 36px;
+
+        padding: 0 16px;
+
+        border: 1px solid var(--primary);
+        border-radius: 6px;
+
+        background: var(--primary);
+        color: var(--primary-foreground);
+
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+
+        cursor: pointer;
+
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+      }
+
+      .submit-button:hover {
+        background: #27272a;
+        border-color: #27272a;
+      }
+
+      /* =========================
+         Responsive
+      ========================= */
+
+      @media (max-width: 768px) {
+        :root {
+          --sidebar-width: 200px;
+        }
+
+        .main-header {
+          padding: 0 24px;
+        }
+
+        .content {
+          padding: 24px;
+        }
+
+        .form-row {
+          grid-template-columns: 160px minmax(0, 1fr);
+          column-gap: 24px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        :root {
+          --sidebar-width: 180px;
+        }
+
+        .main-header {
+          padding: 0 20px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+          row-gap: 12px;
+        }
+
+        .form-label-container {
+          padding-top: 0;
+        }
+
+        .form-footer {
+          justify-content: stretch;
+        }
+
+        .submit-button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">Simple POS</div>
+        </div>
+
+        <div class="sidebar-content">
+          <div class="sidebar-group">
+            <div class="sidebar-group-title">Master Data</div>
+
+            <a href="/product-categories" class="sidebar-link active">
+              Product Category
+            </a>
+
+            <a href="/warehouses" class="sidebar-link"> Warehouse </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main">
+        <!-- Header -->
+        <header class="main-header">
+          <div class="header-content">
+            <a href="/product-categories" class="back-button"> Back </a>
+
+            <div class="header-divider"></div>
+
+            <h1 class="page-title">Create Product Category</h1>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+          <div class="form-container">
+            <form
+              method="post"
+              action="/product-categories/create"
+              class="form"
+            >
+              <div class="form-title">Product Category Data</div>
+
+              <!-- Name -->
+              <div class="form-row">
+                <div class="form-label-container">
+                  <label for="name" class="form-label"> Name </label>
+
+                  <p class="form-description">
+                    A unique name for this product category.
+                  </p>
+                </div>
+
+                <div class="form-field">
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    class="input"
+                    placeholder="Input name"
+                  />
+
+                  <span class="error"> Example validation error </span>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="form-row">
+                <div class="form-label-container">
+                  <label for="description" class="form-label">
+                    Description
+                  </label>
+
+                  <p class="form-description">
+                    Provide a short description of this product category.
+                  </p>
+                </div>
+
+                <div class="form-field">
+                  <textarea
+                    id="description"
+                    name="description"
+                    class="textarea"
+                    placeholder="Input description"
+                  ></textarea>
+
+                  <span class="error"> Example validation error </span>
+                </div>
+              </div>
+
+              <!-- Footer -->
+              <div class="form-footer">
+                <button type="submit" class="submit-button">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
