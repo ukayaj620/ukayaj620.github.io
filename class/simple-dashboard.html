@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Product Categories | Simple POS</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      :root {
+        --background: #ffffff;
+        --foreground: #09090b;
+
+        --muted: #71717a;
+        --border: #e4e4e7;
+
+        --sidebar-width: 240px;
+
+        --primary: #18181b;
+        --primary-foreground: #fafafa;
+
+        --danger: #dc2626;
+        --danger-background: #fef2f2;
+
+        --success: #16a34a;
+        --success-background: #f0fdf4;
+      }
+
+      body {
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+
+        background: var(--background);
+        color: var(--foreground);
+        font-size: 14px;
+      }
+
+      /* =========================
+         Layout
+      ========================= */
+
+      .app {
+        min-height: 100vh;
+        display: flex;
+      }
+
+      /* =========================
+         Sidebar
+      ========================= */
+
+      .sidebar {
+        width: var(--sidebar-width);
+        min-height: 100vh;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        border-right: 1px solid var(--border);
+        background: #fafafa;
+      }
+
+      .sidebar-header {
+        height: 64px;
+        min-height: 64px;
+
+        display: flex;
+        align-items: center;
+
+        padding: 0 20px;
+
+        border-bottom: 1px solid var(--border);
+      }
+
+      .sidebar-title {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .sidebar-content {
+        padding: 20px 12px;
+      }
+
+      .sidebar-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .sidebar-group-title {
+        padding: 0 8px;
+        margin-bottom: 6px;
+
+        color: var(--muted);
+
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+
+        height: 36px;
+        padding: 0 10px;
+
+        border-radius: 6px;
+
+        color: #52525b;
+        text-decoration: none;
+
+        font-size: 14px;
+        font-weight: 500;
+
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+
+      .sidebar-link:hover {
+        background: #f4f4f5;
+        color: var(--foreground);
+      }
+
+      .sidebar-link.active {
+        background: #e4e4e7;
+        color: var(--foreground);
+      }
+
+      /* =========================
+         Main
+      ========================= */
+
+      .main {
+        width: calc(100% - var(--sidebar-width));
+        margin-left: var(--sidebar-width);
+        min-height: 100vh;
+      }
+
+      .main-header {
+        height: 64px;
+        min-height: 64px;
+
+        display: flex;
+        align-items: center;
+
+        padding: 0 24px;
+
+        border-bottom: 1px solid var(--border);
+        background: var(--background);
+      }
+
+      .page-title {
+        color: var(--foreground);
+
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .content {
+        width: 100%;
+        padding: 24px;
+      }
+
+      /* =========================
+         Filter Bar
+      ========================= */
+
+      .filter-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 16px;
+
+        margin-bottom: 16px;
+      }
+
+      .filters {
+        display: flex;
+        align-items: center;
+
+        gap: 8px;
+      }
+
+      .input,
+      .select {
+        height: 36px;
+
+        border: 1px solid var(--border);
+        border-radius: 6px;
+
+        background: white;
+        color: var(--foreground);
+
+        font-family: inherit;
+        font-size: 14px;
+
+        outline: none;
+
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+
+      .input {
+        width: 280px;
+        padding: 0 12px;
+      }
+
+      .select {
+        min-width: 140px;
+        padding: 0 32px 0 12px;
+
+        cursor: pointer;
+      }
+
+      .input::placeholder {
+        color: #a1a1aa;
+      }
+
+      .input:focus,
+      .select:focus {
+        border-color: #a1a1aa;
+        outline: 2px solid #f4f4f5;
+      }
+
+      /* =========================
+         Buttons
+      ========================= */
+
+      .button {
+        height: 36px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0 14px;
+
+        border: 1px solid var(--border);
+        border-radius: 6px;
+
+        background: white;
+        color: #27272a;
+
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+
+        text-decoration: none;
+
+        cursor: pointer;
+
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+      }
+
+      .button:hover {
+        background: #f4f4f5;
+        border-color: #d4d4d8;
+      }
+
+      .button-primary {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: var(--primary-foreground);
+      }
+
+      .button-primary:hover {
+        background: #27272a;
+        border-color: #27272a;
+      }
+
+      /* =========================
+         Table
+      ========================= */
+
+      .table-container {
+        width: 100%;
+
+        overflow-x: auto;
+
+        border: 1px solid var(--border);
+        border-radius: 8px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+
+        background: white;
+      }
+
+      thead {
+        background: #fafafa;
+      }
+
+      th {
+        height: 44px;
+
+        padding: 0 16px;
+
+        border-bottom: 1px solid var(--border);
+
+        color: #52525b;
+
+        font-size: 12px;
+        font-weight: 500;
+
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      td {
+        height: 60px;
+
+        padding: 10px 16px;
+
+        border-bottom: 1px solid var(--border);
+
+        color: #27272a;
+
+        vertical-align: middle;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      tbody tr:hover {
+        background: #fafafa;
+      }
+
+      .name {
+        color: var(--foreground);
+        font-weight: 500;
+      }
+
+      .description {
+        color: var(--muted);
+      }
+
+      /* =========================
+         Status
+      ========================= */
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+
+        padding: 3px 8px;
+
+        border: 1px solid var(--border);
+        border-radius: 999px;
+
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .status.active {
+        border-color: #bbf7d0;
+        background: var(--success-background);
+        color: #15803d;
+      }
+
+      .status.inactive {
+        border-color: #e4e4e7;
+        background: #f4f4f5;
+        color: #71717a;
+      }
+
+      /* =========================
+         Row Actions
+      ========================= */
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .action-button {
+        height: 32px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0 12px;
+
+        border: 1px solid var(--border);
+        border-radius: 6px;
+
+        background: white;
+        color: #27272a;
+
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .action-button:hover {
+        background: #f4f4f5;
+        border-color: #d4d4d8;
+      }
+
+      .edit-button {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: var(--primary-foreground);
+      }
+
+      .edit-button:hover {
+        background: #27272a;
+        border-color: #27272a;
+      }
+
+      .danger-button {
+        color: var(--danger);
+      }
+
+      .danger-button:hover {
+        background: var(--danger-background);
+        border-color: #fecaca;
+      }
+
+      .success-button {
+        color: var(--success);
+      }
+
+      .success-button:hover {
+        background: var(--success-background);
+        border-color: #bbf7d0;
+      }
+
+      /* =========================
+         Responsive
+      ========================= */
+
+      @media (max-width: 768px) {
+        :root {
+          --sidebar-width: 200px;
+        }
+
+        .main-header {
+          padding: 0 24px;
+        }
+
+        .content {
+          padding: 24px;
+        }
+
+        .filter-bar {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .filters {
+          width: 100%;
+        }
+
+        .input {
+          flex: 1;
+          width: auto;
+        }
+
+        .button-primary {
+          align-self: flex-start;
+        }
+      }
+
+      @media (max-width: 640px) {
+        :root {
+          --sidebar-width: 180px;
+        }
+
+        .main-header {
+          padding: 0 20px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .filters {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .input,
+        .select {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">Simple POS</div>
+        </div>
+
+        <div class="sidebar-content">
+          <div class="sidebar-group">
+            <div class="sidebar-group-title">Master Data</div>
+
+            <a href="/product-categories" class="sidebar-link active">
+              Product Category
+            </a>
+
+            <a href="/warehouses" class="sidebar-link"> Warehouse </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main">
+        <!-- Page Header -->
+        <header class="main-header">
+          <h1 class="page-title">Product Categories</h1>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+          <!-- Filter Bar -->
+          <div class="filter-bar">
+            <div class="filters">
+              <input type="text" class="input" placeholder="Search name..." />
+            </div>
+
+            <a href="#" class="button button-primary"> Create </a>
+          </div>
+
+          <!-- Table -->
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="name">Beverages</span>
+                  </td>
+
+                  <td>
+                    <span class="description">
+                      Coffee, tea, soft drinks, and other beverages
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status active"> Active </span>
+                  </td>
+
+                  <td>
+                    <div class="actions">
+                      <a href="#" class="action-button edit-button"> Edit </a>
+
+                      <button type="button" class="action-button danger-button">
+                        Deactivate
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <span class="name">Food</span>
+                  </td>
+
+                  <td>
+                    <span class="description">
+                      Ready-to-eat food and meals
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status active"> Active </span>
+                  </td>
+
+                  <td>
+                    <div class="actions">
+                      <a href="#" class="action-button edit-button"> Edit </a>
+
+                      <button type="button" class="action-button danger-button">
+                        Deactivate
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <span class="name">Snacks</span>
+                  </td>
+
+                  <td>
+                    <span class="description">
+                      Chips, biscuits, candy, and packaged snacks
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status active"> Active </span>
+                  </td>
+
+                  <td>
+                    <div class="actions">
+                      <a href="#" class="action-button edit-button"> Edit </a>
+
+                      <button type="button" class="action-button danger-button">
+                        Deactivate
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <span class="name">Personal Care</span>
+                  </td>
+
+                  <td>
+                    <span class="description">
+                      Personal hygiene and care products
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status inactive"> Inactive </span>
+                  </td>
+
+                  <td>
+                    <div class="actions">
+                      <a href="#" class="action-button edit-button"> Edit </a>
+
+                      <button
+                        type="button"
+                        class="action-button success-button"
+                      >
+                        Activate
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <span class="name">Household</span>
+                  </td>
+
+                  <td>
+                    <span class="description">
+                      Cleaning supplies and household essentials
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status active"> Active </span>
+                  </td>
+
+                  <td>
+                    <div class="actions">
+                      <a href="#" class="action-button edit-button"> Edit </a>
+
+                      <button type="button" class="action-button danger-button">
+                        Deactivate
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <span class="name">Stationery</span>
+                  </td>
+
+                  <td>
+                    <span class="description">
+                      Office and school stationery products
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status active"> Active </span>
+                  </td>
+
+                  <td>
+                    <div class="actions">
+                      <a href="#" class="action-button edit-button"> Edit </a>
+
+                      <button type="button" class="action-button danger-button">
+                        Deactivate
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <span class="name">Electronics</span>
+                  </td>
+
+                  <td>
+                    <span class="description">
+                      Electronic devices and accessories
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status inactive"> Inactive </span>
+                  </td>
+
+                  <td>
+                    <div class="actions">
+                      <a href="#" class="action-button edit-button"> Edit </a>
+
+                      <button
+                        type="button"
+                        class="action-button success-button"
+                      >
+                        Activate
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <span class="name">Frozen Food</span>
+                  </td>
+
+                  <td>
+                    <span class="description">
+                      Frozen meat, vegetables, and prepared food
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status active"> Active </span>
+                  </td>
+
+                  <td>
+                    <div class="actions">
+                      <a href="#" class="action-button edit-button"> Edit </a>
+
+                      <button type="button" class="action-button danger-button">
+                        Deactivate
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
